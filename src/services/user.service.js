@@ -27,7 +27,18 @@ const createUser = async ({ email, password, displayName, image }) => {
     return { type: null, message: token };
 };
 
+const getUser = async (id) => {
+    const user = await User.findOne({ where: { id }, attributes: { exclude: ['password'] } });
+    if (!user) {
+        const throwError = { status: 404, message: 'User does not exist' };
+        throw throwError;
+    }
+
+    return { type: null, message: user };
+};
+
 module.exports = {
     validateLogin,
     createUser,
+    getUser,
 };

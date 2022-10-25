@@ -1,4 +1,5 @@
 const { schemaUser } = require('../utils/joiValidation');
+const { tokenValidation } = require('../utils/jwt.util');
 
 const userMiddleware = (req, res, next) => {
     const { email, password } = req.body;
@@ -18,7 +19,19 @@ const createUser = (req, res, next) => {
     next();
 };
 
+const validationToken = (req, res, next) => {
+    const { authorization } = req.headers;
+    if (!authorization || authorization === '') {
+        const throwError = { status: 401, message: 'Token not found' };
+        throw throwError;
+    }
+    const data = tokenValidation(authorization);
+    req.user = data;
+    next();
+};
+
 module.exports = {
     userMiddleware,
     createUser,
+    validationToken,
 };
