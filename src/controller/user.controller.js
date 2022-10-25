@@ -1,4 +1,4 @@
-const { validateLogin, createUser, getUser } = require('../services/user.service');
+const { validateLogin, createUser, getUser, getUsers } = require('../services/user.service');
 
 const generateToken = async (req, res) => {
     const corpo = req.body;
@@ -15,8 +15,11 @@ const generateUser = async (req, res) => {
 const userGet = async (req, res) => {
     const { id } = req.params;
     const { message } = await getUser(id);
-    delete message.password;
-   /*  const { _password, ...newMessage } = message; */
+    return res.status(200).json(message);
+};
+
+const userGets = async (_req, res) => {
+    const { message } = await getUsers();
     return res.status(200).json(message);
 };
 
@@ -24,4 +27,5 @@ module.exports = {
     generateToken,
     generateUser,
     userGet,
+    userGets,
 };

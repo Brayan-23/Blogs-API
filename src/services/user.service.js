@@ -27,6 +27,12 @@ const createUser = async ({ email, password, displayName, image }) => {
     return { type: null, message: token };
 };
 
+const getUsers = async () => {
+    const user = await User.findAll({ attributes: { exclude: ['password'] } });
+
+    return { type: null, message: user };
+};
+
 const getUser = async (id) => {
     const user = await User.findOne({ where: { id }, attributes: { exclude: ['password'] } });
     if (!user) {
@@ -41,4 +47,5 @@ module.exports = {
     validateLogin,
     createUser,
     getUser,
+    getUsers,
 };
