@@ -4,8 +4,9 @@ module.exports = (sequelize, DataTypes) => {
         postId: DataTypes.INTEGER,
         categoryId: DataTypes.INTEGER
     }, {
-        tableName: 'blog_posts',
+        tableName: 'posts_categories',
         underscored: true,
+        timestamps: false,
     });
 
     PostCategory.associate = (models) => {

@@ -20,9 +20,14 @@ module.exports = {
         onUpdated: 'CASCADE',
         ondelete: 'CASCADE',
       },
-      published: Sequelize.DATE,
-      updated: Sequelize.DATE,
-    });
+      published: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP()'),
+        },
+        updated: {
+        type: Sequelize.DATE,
+        }
+    }, {timestamps: false});
   },
 
   down: async (queryInterface, Sequelize) => {

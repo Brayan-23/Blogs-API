@@ -9,7 +9,7 @@ const validateLogin = async ({ email, password }) => {
         throw throwError;
     }
 
-    const token = createToken(email);
+    const token = createToken(email, user.id);
     return { type: null, message: token };
 };
 
