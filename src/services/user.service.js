@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, BlogPost } = require('../models');
 const { createToken } = require('../utils/jwt.util');
 
 const validateLogin = async ({ email, password }) => {
@@ -43,9 +43,17 @@ const getUser = async (id) => {
     return { type: null, message: user };
 };
 
+const deletedUser = async (id) => {
+     await BlogPost.destroy({ where: { userId: id } });
+    const user = await User.destroy({ where: { id } });
+
+    return { type: null, message: user };
+};
+
 module.exports = {
     validateLogin,
     createUser,
     getUser,
     getUsers,
+    deletedUser,
 };

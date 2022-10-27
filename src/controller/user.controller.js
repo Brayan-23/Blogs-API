@@ -1,4 +1,9 @@
-const { validateLogin, createUser, getUser, getUsers } = require('../services/user.service');
+const { 
+    validateLogin, 
+    createUser, 
+    getUser, 
+    getUsers, 
+    deletedUser } = require('../services/user.service');
 
 const generateToken = async (req, res) => {
     const corpo = req.body;
@@ -23,9 +28,15 @@ const userGets = async (_req, res) => {
     return res.status(200).json(message);
 };
 
+const deleteUser = async (req, res) => {
+     await deletedUser(req.user.id);
+    return res.status(204).json();
+};
+
 module.exports = {
     generateToken,
     generateUser,
     userGet,
     userGets,
+    deleteUser,
 };
