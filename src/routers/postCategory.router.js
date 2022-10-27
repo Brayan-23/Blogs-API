@@ -3,7 +3,8 @@ const {
     testTransaction, 
     postsAndCategories, 
     postAndCategory,
-updatePostAndCategory } = require('../controller/postCategory.controller');
+updatePostAndCategory,
+deletePost } = require('../controller/postCategory.controller');
 const { validationToken } = require('../middlewares/userMiddleware');
 const { 
     postCategoriesMiddleware, 
@@ -15,5 +16,6 @@ postRouter.post('/', validationToken, postCategoriesMiddleware, checkCategoryIds
 postRouter.get('/:id', validationToken, postAndCategory);
 postRouter.get('/', validationToken, postsAndCategories);
 postRouter.put('/:id', validationToken, postCategoriesMiddleware, updatePostAndCategory);
+postRouter.delete('/:id', validationToken, deletePost);
 
 module.exports = postRouter;

@@ -2,7 +2,8 @@ const {
     transactionTest,
     getPostsAndCategories,
     getPostAndCategory,
-    updatedPostAndCategory } = require('../services/postCaterory.service');
+    updatedPostAndCategory,
+    deletedPost } = require('../services/postCaterory.service');
 
 const testTransaction = async (req, res) => {
     const corpo = req.body;
@@ -28,9 +29,16 @@ const updatePostAndCategory = async (req, res) => {
     return res.status(200).json(message);
 };
 
+const deletePost = async (req, res) => {
+    const { id } = req.params;
+    await deletedPost(id, req.user.id);
+    return res.status(204).json();
+};
+
 module.exports = {
     testTransaction,
     postsAndCategories,
     postAndCategory,
     updatePostAndCategory,
+    deletePost,
 };
