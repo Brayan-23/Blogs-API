@@ -1,4 +1,4 @@
-const { BlogPost, sequelize, PostCategory } = require('../models');
+const { BlogPost, sequelize, PostCategory, Category, User } = require('../models');
 const { mapBulkCreate } = require('../utils/generateArrayBulk');
 
 const transactionTest = async ({ title, content, categoryIds }, user) => {
@@ -19,6 +19,16 @@ const transactionTest = async ({ title, content, categoryIds }, user) => {
  }
 };
 
+const getPostsAndCategories = async () => {
+    const result = await BlogPost.findAll({
+        attributes: { exclude: ['user_id'] },
+        include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } },
+    { model: Category, as: 'categories', through: { attributes: [] } }],
+    });
+    return { type: null, message: result };
+};
+
 module.exports = {
     transactionTest,
+    getPostsAndCategories,
 };

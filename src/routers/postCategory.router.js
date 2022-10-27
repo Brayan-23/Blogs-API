@@ -1,5 +1,5 @@
 const express = require('express');
-const { testTransaction } = require('../controller/postCategory.controller');
+const { testTransaction, postAndCategory } = require('../controller/postCategory.controller');
 const { validationToken } = require('../middlewares/userMiddleware');
 const { 
     postCategoriesMiddleware, 
@@ -8,5 +8,6 @@ const {
 const postRouter = express.Router();
 
 postRouter.post('/', validationToken, postCategoriesMiddleware, checkCategoryIds, testTransaction);
+postRouter.get('/', validationToken, postAndCategory);
 
 module.exports = postRouter;
