@@ -4,7 +4,8 @@ const {
     postsAndCategories, 
     postAndCategory,
 updatePostAndCategory,
-deletePost } = require('../controller/postCategory.controller');
+deletePost,
+postSearch } = require('../controller/postCategory.controller');
 const { validationToken } = require('../middlewares/userMiddleware');
 const { 
     postCategoriesMiddleware, 
@@ -13,6 +14,7 @@ const {
 const postRouter = express.Router();
 
 postRouter.post('/', validationToken, postCategoriesMiddleware, checkCategoryIds, testTransaction);
+postRouter.get('/search', validationToken, postSearch);
 postRouter.get('/:id', validationToken, postAndCategory);
 postRouter.get('/', validationToken, postsAndCategories);
 postRouter.put('/:id', validationToken, postCategoriesMiddleware, updatePostAndCategory);

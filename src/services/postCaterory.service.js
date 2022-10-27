@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost, sequelize, PostCategory, Category, User } = require('../models');
 const { mapBulkCreate } = require('../utils/generateArrayBulk');
 
@@ -76,10 +77,33 @@ const deletedPost = async (id, user) => {
     return { type: null, message: userAccept };
 };
 
+const pegaTudo = async (search, titleAndContent) => {
+    const post = await BlogPost.findAll({
+        where: {
+            [titleAndContent]: {
+            [Op.like]: `%${search}%`,
+            },
+         },
+         attributes: { exclude: ['user_id'] },
+         include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } },
+         { model: Category, as: 'categories', through: { attributes: [] } }],
+    });
+    return post;
+};
+
+const searchPost = async (search) => {
+        const result = await pegaTudo(search, 'title');
+        const result2 = await pegaTudo(search, 'content');
+    if (result.length !== 0) return { type: null, message: result };
+
+    return { type: null, message: result2 };
+};
+
 module.exports = {
     transactionTest,
     getPostsAndCategories,
     getPostAndCategory,
     updatedPostAndCategory,
     deletedPost,
+    searchPost,
 };
