@@ -22,7 +22,6 @@ Neste projeto desenvolvi uma API e um banco de dados para a produção de conte�
 - NodeJS com Express;
 - JWT;
 - Joi
-- 
 # Orientações
 
 - *Clonar o repositório:*
