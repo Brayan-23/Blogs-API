@@ -28,7 +28,7 @@ Neste projeto desenvolvi uma API e um banco de dados para a produção de conte�
 - *Clonar o repositório:*
 
 ```
-$ git clone
+$ git clone git@github.com:Brayan-23/Blogs-API.git
 ```
 
 - *Acessar o blogsApi:*
